@@ -51,8 +51,6 @@ async function search(imdbId: string, season?: number, episode?: number) {
   return subtitles;
 }
 
-export const colors = ["#ffffff", "#b0b0b0", "#80b1fa", "#e2e535"];
-
 export function CaptionScrapingView({ id }: { id: string }) {
   const { t } = useTranslation();
   const router = useOverlayRouter(id);
@@ -83,6 +81,7 @@ export function CaptionScrapingView({ id }: { id: string }) {
       {getPrettyLanguageNameFromLocale(v.language)}
     </ScrapedCaptionOption>
   ));
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await search(imdbID);
@@ -93,26 +92,16 @@ export function CaptionScrapingView({ id }: { id: string }) {
     fetchData();
   }, [imdbID]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Menu.BackLink onClick={() => router.navigate("/captions")}>
-          {t("player.menus.scraping.settings.backlink")}
-        </Menu.BackLink>
-        <Menu.ScrollToActiveSection className="!pt-2 mt-2 pb-3">
-          <p className="text-center text-xl">Scraping subtitles...</p>
-        </Menu.ScrollToActiveSection>
-      </>
-    );
-  }
-
+  // Shits fire
   return (
     <>
       <Menu.BackLink onClick={() => router.navigate("/captions")}>
         {t("player.menus.scraping.settings.backlink")}
       </Menu.BackLink>
-      <Menu.ScrollToActiveSection className="!pt-1 mt-2 pb-3">
-        {data.length === 0 ? (
+      <Menu.ScrollToActiveSection className="!pt-2 mt-2 pb-3">
+        {isLoading ? (
+          <p className="text-center text-xl">Scraping subtitles...</p>
+        ) : data.length === 0 ? (
           <p className="text-center text-xl">
             Couldn&apos;t find any subtitles :(
           </p>
