@@ -271,7 +271,7 @@ export function CaptionsView({ id }: { id: string }) {
             {t("player.menus.subtitles.offChoice")}
           </CaptionOption>
           <CustomCaptionOption />
-          {content.length === 0 && (
+          {content.length === 0 ? (
             <div className="p-4 rounded-xl bg-video-context-light bg-opacity-10 font-medium text-center">
               <div className="flex flex-col items-center justify-center gap-3">
                 {t("player.menus.subtitles.empty")}
@@ -284,6 +284,8 @@ export function CaptionsView({ id }: { id: string }) {
                 </button>
               </div>
             </div>
+          ) : (
+            content
           )}
         </Menu.ScrollToActiveSection>
       </FileDropHandler>
