@@ -24,6 +24,7 @@ export function getProviders() {
     fetcher: makeStandardFetcher(fetch),
     proxiedFetcher: makeLoadBalancedSimpleProxyFetcher(),
     target: targets.BROWSER,
+    proxyStreams: true,
   });
 }
 
